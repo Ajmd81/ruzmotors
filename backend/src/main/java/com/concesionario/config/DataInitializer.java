@@ -19,14 +19,17 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         // Crear usuario admin si no existe
-        if (!usuarioRepository.existsByUsername("admin")) {
+        String adminUsername = System.getenv().getOrDefault("ADMIN_USERNAME", "admin");
+        String adminPassword = System.getenv().getOrDefault("ADMIN_PASSWORD", "admin123");
+
+        if (!usuarioRepository.existsByUsername(adminUsername)) {
             Usuario admin = Usuario.builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("admin123"))
+                    .username(adminUsername)
+                    .password(passwordEncoder.encode(adminPassword))
                     .rol(Usuario.Rol.ADMIN)
                     .build();
             usuarioRepository.save(admin);
-            log.info("✅ Usuario admin creado: admin / admin123 — ¡Cambia la contraseña en producción!");
+            log.info("✅ Usuario admin creado correctamente.");
         }
     }
 }
