@@ -1,8 +1,6 @@
 [build]
 builder = "NIXPACKS"
-
-[build.buildCommand]
-cmd = "mvn clean package -DskipTests"
+buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
 startCommand = "java -jar target/*.jar"
