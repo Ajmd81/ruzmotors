@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+
+[build.buildCommand]
+cmd = "mvn clean package -DskipTests"
+
+[deploy]
+startCommand = "java -jar target/*.jar"
+healthcheckPath = "/api/vehiculos"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"
